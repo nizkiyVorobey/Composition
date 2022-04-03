@@ -1,17 +1,12 @@
 package com.example.composition.presentation
 
 import android.app.Application
-import android.content.Context
 import android.os.CountDownTimer
-import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.composition.R
 import com.example.composition.data.GameRepositoryImpl
-import com.example.composition.databinding.FragmentChooseLevelBinding
-import com.example.composition.databinding.FragmentGameBinding
 import com.example.composition.domain.entity.GameResult
 import com.example.composition.domain.entity.GameSettings
 import com.example.composition.domain.entity.Level

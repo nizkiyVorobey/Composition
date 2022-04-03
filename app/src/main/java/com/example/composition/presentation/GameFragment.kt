@@ -61,13 +61,16 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
         observeViewModal()
         setClickListeners()
     }
 
     private fun observeViewModal() {
         with(binding) {
-            viewModel.currentQuestion.observe(viewLifecycleOwner) {
+            viewModel?.currentQuestion?.observe(viewLifecycleOwner) {
                 tvSum.text = it.sum.toString()
                 tvLeftNumber.text = it.visibleNumber.toString()
 
@@ -77,46 +80,11 @@ class GameFragment : Fragment() {
             }
         }
 
-        viewModel.percentOfRightAnswers.observe(viewLifecycleOwner) {
-            binding.progressBar.setProgress(it, true)
-        }
-
-        viewModel.enoughCountOfRightAnswers.observe(viewLifecycleOwner) {
-            binding.tvAnswersProgress.setTextColor(getColorByState(it))
-        }
-
-        viewModel.enoughPercentOfRightAnswers.observe(viewLifecycleOwner) {
-            val color = getColorByState(it)
-
-            binding.progressBar.progressTintList = ColorStateList.valueOf(color)
-        }
-
-        viewModel.formattedTime.observe(viewLifecycleOwner) {
-            binding.tvTimer.text = it
-        }
-
-        viewModel.minPercent.observe(viewLifecycleOwner) {
-            binding.progressBar.secondaryProgress = it
-        }
-
         viewModel.gameResult.observe(viewLifecycleOwner) {
             launchGameFragment(it)
         }
-
-        viewModel.progressAnswers.observe(viewLifecycleOwner) {
-            binding.tvAnswersProgress.text = it
-        }
     }
 
-    private fun getColorByState(goodState: Boolean): Int {
-        val colorResId = if (goodState) {
-            android.R.color.holo_green_light
-        } else {
-            android.R.color.holo_red_light
-        }
-
-        return ContextCompat.getColor(requireContext(), colorResId)
-    }
 
     private fun setClickListeners() {
         tvOptions.forEach() { textView ->
@@ -128,7 +96,11 @@ class GameFragment : Fragment() {
     }
 
     private fun launchGameFragment(gameResult: GameResult) {
-        findNavController().navigate(GameFragmentDirections.actionGameFragmentToGameFinishedFragment(gameResult))
+        findNavController().navigate(
+            GameFragmentDirections.actionGameFragmentToGameFinishedFragment(
+                gameResult
+            )
+        )
     }
 
 }
