@@ -60,7 +60,6 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     val gameResult: LiveData<GameResult>
         get() = _gameResult
 
-
     private var timer: CountDownTimer? = null
     private var countOfRightAnswers = 0
     private var countOfQuestion = 0
@@ -143,6 +142,10 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         val minutes = seconds / SECONDS_IN_MINUTES
         val leftSeconds = seconds - (minutes * SECONDS_IN_MINUTES)
 
+        /**
+         * "%02d:%02d"
+         * Вставить два числа, якщо воно менше за 10 до достасть до нього 0. Це для того щоб було ось так 05:08 (5 хвилин і 8 секунд)
+         */
         return String.format("%02d:%02d", minutes, leftSeconds)
     }
 

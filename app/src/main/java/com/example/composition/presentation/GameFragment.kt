@@ -67,14 +67,11 @@ class GameFragment : Fragment() {
         }
         observeViewModal()
         setClickListeners()
-
     }
 
     private fun observeViewModal() {
         with(binding) {
-
             viewModel.currentQuestion.observe(viewLifecycleOwner) {
-
                 tvSum.text = it.sum.toString()
                 tvLeftNumber.text = it.visibleNumber.toString()
 
@@ -82,13 +79,12 @@ class GameFragment : Fragment() {
                     textView.text = it.options[index].toString()
                 }
             }
-
-
         }
 
         viewModel.percentOfRightAnswers.observe(viewLifecycleOwner) {
             binding.progressBar.setProgress(it, true)
         }
+
         viewModel.enoughCountOfRightAnswers.observe(viewLifecycleOwner) {
             binding.tvAnswersProgress.setTextColor(getColorByState(it))
         }
@@ -144,7 +140,6 @@ class GameFragment : Fragment() {
             .addToBackStack(null)
             .commit()
     }
-
 
     private fun parseArgs() {
         requireArguments().getParcelable<Level>(KEY_LEVEL)?.let {
